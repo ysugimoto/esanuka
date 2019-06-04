@@ -1,5 +1,5 @@
 const remote = require('./lib/remote.js');
-const { validateDefinition, validateConfig } = require('./lib/validate.js');
+const { validateDefinition, validateConfig, validateAwsConfig } = require('./lib/validate.js');
 const { generateResources, removeUnusedResources } = require('./lib/resource.js');
 const { generateAlarms } = require('./lib/alarm.js');
 const { deployStage } = require('./lib/deploy.js');
@@ -19,6 +19,8 @@ const defaultConfig = {
 };
 
 const esanuka = async (defs, options = {}, dryRun = false) => {
+  validateAwsConfig();
+
   const config = Object.assign({dryRun}, defaultConfig, options);
   validateConfig(config);
 
