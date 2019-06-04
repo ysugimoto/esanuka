@@ -37,7 +37,6 @@ const esanuka = async (defs, options = {}, dryRun = false) => {
   }
 
   const resources = await remote(config.restApiId);
-  console.log(JSON.stringify(resources, null, '  '));
   await generateResources(config.restApiId, defs, resources);
   console.log('\n======================= ALARM GENERATION =========================');
   await generateAlarms(config.restApiId, defs);
