@@ -14,7 +14,8 @@ const defaultConfig = {
   lambdaAliases: [],
   baseDomain: '',
   restApiId: '',
-  deploymentStage: ''
+  deploymentStage: '',
+  verbose: false
 };
 
 const esanuka = async (defs, options = {}, dryRun = false) => {
