@@ -15,7 +15,8 @@ const defaultConfig = {
   baseDomain: '',
   restApiId: '',
   deploymentStage: '',
-  verbose: false
+  verbose: false,
+  skipFunctionExistence: false
 };
 
 const esanuka = async (defs, options = {}, dryRun = false) => {
