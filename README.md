@@ -16,6 +16,16 @@ Or `yarn`:
 yarn add esanuka -D
 ```
 
+## Account Specification
+
+Need to set environment variables of AWS account:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_ACCOUNT_ID`
+
+Make sure account has `APIGateway` and `Lambda` policies.
+
 ## Resource Definition
 
 `esanuka` accepts following YAML structure:
