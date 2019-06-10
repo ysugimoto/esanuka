@@ -24,7 +24,7 @@ yarn add esanuka -D`
 authorizers:
   authorizer-function-name:
     type: lambda
-    function authorizer-lambda-function
+    function: authorizer-lambda-function
     sourceHeader: cookie
     ttl: 300
 
@@ -41,7 +41,7 @@ resources:
 Parameters specifications are:
 
 | name                                                  | type   | required | description                                                                                                               |
-|:-----------------------------------------------------:|:------:|:--------:|:--------------------------------------------------------------------------------------------------------------------------|
+|:------------------------------------------------------|:------:|:--------:|:--------------------------------------------------------------------------------------------------------------------------|
 | authorizers                                           | Object | No       | Authorizer specifications. Key is authorizer name                                                                         |
 | authorizers[key].type                                 | String | Yes      | Authorizer Type. Currentry support `lamba` only                                                                           |
 | authorizers[key].function                             | String | Yes      | Lambda function name                                                                                                      |
@@ -233,7 +233,7 @@ esanuka.dryRun(definitions, {
 Describes option fields with following:
 
 | name                      | type                 | required | description                                                                                          |
-|:-------------------------:|:--------------------:|:--------:|:-----------------------------------------------------------------------------------------------------|
+|:--------------------------|:--------------------:|:--------:|:-----------------------------------------------------------------------------------------------------|
 | onIntegrationParameters   | Function(obj) => obj | No       | Hook on create integration request parameters. You can add more integration headers in this function |
 | onMethodRequestParameters | Function(obj) => obj | No       | Hook on create method request parameters. You can add more integration headers in this function      |
 | useLambdaWithStage        | Boolean              | No       | If `true`, create Lambda integration with staging environment as ${environment.stage} function alias |
