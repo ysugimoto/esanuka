@@ -13,8 +13,8 @@ npm install esanuka -D
 Or `yarn`:
 
 ```shell
-yarn add esanuka -D`
-````
+yarn add esanuka -D
+```
 
 ## Resource Definition
 
