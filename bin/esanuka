@@ -3,7 +3,10 @@
 const args = require('minimist')(process.argv.slice(2), {
   boolean: true,
   alias: {
-    f: 'file'
+    f: 'file',
+    v: 'verbose',
+    s: 'stage',
+    h: 'help'
   }
 });
 const esanuka = require('../index.js');
@@ -17,26 +20,49 @@ const displayError = msg => {
   process.exit(1);
 }
 
-(async file => {
-  if (!file) {
+if (args.h || args.help) {
+  const pkgJson = require('../package.json')
+  console.log(`esanuka: AWS APIGateway resource management tool v${pkgJson.version}`);
+  console.log('=====================================================');
+  console.log('Usage:');
+  console.log('  esanuka [options]');
+  console.log('Options:');
+  console.log('  -f,--file     : Source definition file');
+  console.log('  -v,--verbose  : Verbose logs');
+  console.log('  -h,--help     : Show this help');
+  console.log('  --dry-run     : Dry-Run');
+  console.log('  --rest-api-id : Define target RestApiId on APIGateway');
+  process.exit(1);
+}
+
+(async () => {
+  if (!args.file) {
     displayError('Definition file is required with option -f, --file');
   }
-  const ext = path.extname(file);
+  const ext = path.extname(args.file);
   if (ext !== '.yml' && ext !== '.yaml') {
     displayError(`Definition file must be YAML file which has .yml or .yaml extension`);
   }
-  if (!fs.existsSync(file)) {
+  if (!fs.existsSync(args.file)) {
     displayError('Definition file must be exist');
   }
 
   const definition = esanuka.factory(file, {});
   try {
     if (args['dry-run']) {
-      await esanuka.dryRun(definition);
+      await esanuka.dryRun(definition, {
+        restApiId: args['rest-api-id'],
+        deploymentStage: args.s || args.stage,
+        verbose: Boolean(args.v || args.verbose)
+      });
     } else {
-      await esanuka(definition);
+      await esanuka(definition, {
+        restApiId: args['rest-api-id'],
+        deploymentStage: args.s || args.stage,
+        verbose: Boolean(args.v || args.verbose)
+      });
     }
   } catch (err) {
     displayError(err.message);
   }
-})(args.f || args.file);
+})();
