@@ -1,6 +1,6 @@
 {
   "name": "esanuka",
-  "version": "0.6.17",
+  "version": "0.7.0",
   "bin": "bin/esanuka",
   "description": "",
   "main": "index.js",
