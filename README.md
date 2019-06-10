@@ -1,6 +1,6 @@
 # esanuka
 
-esanuka is managing idempotency tool for AWS API Gateway.
+esanuka is manage idempotency tool for AWS API Gateway.
 
 ## Installation
 

@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const args = require('minimist')(process.argv.slice(2), {
+  boolean: true,
+  alias: {
+    f: 'file'
+  }
+});
+const esanuka = require('../index.js');
+const fs = require('fs');
+const path = require('path');
+const red = '\u001b[31m';
+const reset = '\u001b[0m';
+
+const displayError = msg => {
+  console.error(`${red}${msg}${reset}`);
+  process.exit(1);
+}
+
+(async file => {
+  if (!file) {
+    displayError('Definition file is required with option -f, --file');
+  }
+  const ext = path.extname(file);
+  if (ext !== '.yml' && ext !== '.yaml') {
+    displayError(`Definition file must be YAML file which has .yml or .yaml extension`);
+  }
+  if (!fs.existsSync(file)) {
+    displayError('Definition file must be exist');
+  }
+
+  const definition = esanuka.factory(file, {});
+  try {
+    if (args['dry-run']) {
+      await esanuka.dryRun(definition);
+    } else {
+      await esanuka(definition);
+    }
+  } catch (err) {
+    displayError(err.message);
+  }
+})(args.f || args.file);
