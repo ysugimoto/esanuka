@@ -47,7 +47,7 @@ const esanuka = async (defs, options = {}, dryRun = false) => {
   console.log('\n======================= ALARM GENERATION =========================');
   await generateAlarms(config.restApiId, defs);
   console.log('\n======================= API KEY GENERATION =========================');
-  await generateApiKeys(config.restApiId, defs.apiKeys);
+  await generateApiKeys(config.restApiId, defs.apiKeys || []);
   console.log('\n=================== Prune unused resources =======================');
   await removeUnusedResources(config.restApiId, defs.resources, resources);
   purgeStore();
