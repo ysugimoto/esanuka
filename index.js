@@ -2,6 +2,7 @@ const remote = require('./lib/remote.js');
 const { validateDefinition, validateConfig, validateAwsConfig } = require('./lib/validate.js');
 const { generateResources, removeUnusedResources } = require('./lib/resource.js');
 const { generateAlarms } = require('./lib/alarm.js');
+const { generateApiKeys } = require('./lib/apikey.js');
 const { deployStage } = require('./lib/deploy.js');
 const { setStore, purgeStore, wait } = require('./lib/util.js');
 const yaml = require('js-yaml');
@@ -45,6 +46,8 @@ const esanuka = async (defs, options = {}, dryRun = false) => {
   await generateResources(config.restApiId, defs, resources);
   console.log('\n======================= ALARM GENERATION =========================');
   await generateAlarms(config.restApiId, defs);
+  console.log('\n======================= API KEY GENERATION =========================');
+  await generateApiKeys(config.restApiId, defs.apiKeys);
   console.log('\n=================== Prune unused resources =======================');
   await removeUnusedResources(config.restApiId, defs.resources, resources);
   purgeStore();
